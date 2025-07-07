@@ -29,28 +29,45 @@
       opacity: 0;
     }
 
-    #birthdayMsg {
-      display: none;
-      font-size: 3em;
-      color: #ff69b4;
-      animation: fadeIn 2s forwards;
+    .fade-in {
+      display: block;
+      animation: fadeIn 1s forwards;
     }
 
-    #customMsg {
+    #birthdayMsg,
+    #para1,
+    #para2 {
       display: none;
-      max-width: 700px;
-      font-size: 1.5em;
-      color: #444;
-      background: #ffffffcc;
+      text-align: center;
+      max-width: 800px;
+      margin: 20px;
       padding: 20px;
+      font-size: 1.5em;
+      background: #ffffffcc;
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
-      animation: fadeIn 2s forwards;
+      color: #444;
+    }
+
+    #birthdayMsg {
+      font-size: 3em;
+      color: #ff69b4;
+      background: none;
+      box-shadow: none;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
+      from { opacity: 0; transform: scale(0.9); }
       to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.9); }
+    }
+
+    .fadeOutNow {
+      animation: fadeOut 1s forwards;
     }
   </style>
 </head>
@@ -58,17 +75,26 @@
 
 <div id="countdown" class="center">10</div>
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
-<div id="customMsg">
-  On this beautiful day, I just want you to know...  
+
+<div id="para1">
+  On this special day, I just want to say how blessed the world is to have someone as kind, beautiful, and inspiring as you. Your smile brightens hearts, and your presence makes life so much sweeter.  
+  I hope your birthday is filled with love, laughter, magic, and everything that makes you happiest. You deserve the world and more. 💕
+</div>
+
+<div id="para2">
+  You’re not just special — you made me understand what real love and care feel like. Thank you for coming into my life and staying. On your birthday, I just want you to know how much you’re loved. Every laugh and moment we’ve shared brings me peace. You taught me that love can be quiet and patient too. I hope this year brings you lots of happiness and helps you become the dermatologist you dream of. I’ll always be here, loving and supporting you — even from a distance. Happy Birthday!
   <br><br>
-  You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
+  If we walk this journey of life together, I promise to always stand by your side, to support you, to cherish you and to love you with all my heart.
+  <br><br>
+  <strong>I love you so much. 💖</strong>
 </div>
 
 <script>
 let count = 10;
 const countdownEl = document.getElementById("countdown");
 const birthdayMsg = document.getElementById("birthdayMsg");
-const customMsg = document.getElementById("customMsg");
+const para1 = document.getElementById("para1");
+const para2 = document.getElementById("para2");
 
 const countdown = setInterval(() => {
   countdownEl.textContent = count;
@@ -81,16 +107,32 @@ const countdown = setInterval(() => {
     setTimeout(() => {
       countdownEl.style.display = "none";
       birthdayMsg.style.display = "block";
+      birthdayMsg.classList.add("fade-in");
 
+      // After 3s, show paragraph 1
       setTimeout(() => {
-        birthdayMsg.classList.add("fade-out");
+        birthdayMsg.classList.add("fadeOutNow");
 
         setTimeout(() => {
           birthdayMsg.style.display = "none";
-          customMsg.style.display = "block";
-        }, 1000);
+          para1.style.display = "block";
+          para1.classList.add("fade-in");
 
-      }, 3000);
+          // After 7s, fade out para1 and show para2
+          setTimeout(() => {
+            para1.classList.add("fadeOutNow");
+
+            setTimeout(() => {
+              para1.style.display = "none";
+              para2.style.display = "block";
+              para2.classList.add("fade-in");
+            }, 1000);
+
+          }, 7000); // 7 seconds readable
+
+        }, 1000);
+      }, 3000); // 3 seconds for happy birthday
+
     }, 1000);
   }
 }, 1000);
