@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Countdown Birthday Surprise</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe4ec, #e0f7fa);
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: #ff1493;
+      overflow: hidden;
+    }
+
+    .center {
+      text-align: center;
+      font-size: 4em;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .fade-out {
+      opacity: 0;
+    }
+
+    #birthdayMsg {
+      display: none;
+      font-size: 3em;
+      color: #ff69b4;
+      animation: fadeIn 2s forwards;
+    }
+
+    #customMsg {
+      display: none;
+      max-width: 700px;
+      font-size: 1.5em;
+      color: #444;
+      background: #ffffffcc;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+      animation: fadeIn 2s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="countdown" class="center">10</div>
+<div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
+<div id="customMsg">
+  On this beautiful day, I just want you to know...  
+  <br><br>
+  You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
+</div>
+
+<script>
+let count = 10;
+const countdownEl = document.getElementById("countdown");
+const birthdayMsg = document.getElementById("birthdayMsg");
+const customMsg = document.getElementById("customMsg");
+
+const countdown = setInterval(() => {
+  countdownEl.textContent = count;
+  count--;
+
+  if (count < 0) {
+    clearInterval(countdown);
+    countdownEl.classList.add("fade-out");
+
+    setTimeout(() => {
+      countdownEl.style.display = "none";
+      birthdayMsg.style.display = "block";
+
+      setTimeout(() => {
+        birthdayMsg.classList.add("fade-out");
+
+        setTimeout(() => {
+          birthdayMsg.style.display = "none";
+          customMsg.style.display = "block";
+        }, 1000);
+
+      }, 3000);
+    }, 1000);
+  }
+}, 1000);
+</script>
+
+</body>
+</html>
