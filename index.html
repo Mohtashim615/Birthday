@@ -10,15 +10,35 @@
       padding: 0;
       background: linear-gradient(135deg, #ffe4ec, #e0f7fa);
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       height: 100vh;
       color: #ff1493;
       overflow: hidden;
     }
 
+    .top-banner {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100px;
+      background: url('https://i.imgur.com/OD9WfZg.png') repeat-x center/contain;
+      z-index: 2;
+    }
+
+    .balloons {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 120px;
+      background: url('https://i.imgur.com/2pH5RRC.png') repeat-x center/contain;
+      z-index: 1;
+      pointer-events: none;
+    }
+
     .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       text-align: center;
       font-size: 4em;
       opacity: 1;
@@ -40,7 +60,7 @@
       display: none;
       text-align: center;
       max-width: 800px;
-      margin: 20px;
+      margin: 20px auto;
       padding: 20px;
       font-size: 1.5em;
       background: #ffffffcc;
@@ -69,9 +89,33 @@
     .fadeOutNow {
       animation: fadeOut 1s forwards;
     }
+
+    .heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
+      animation: heartFloat 8s linear infinite;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    @keyframes heartFloat {
+      0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
+
+<div class="top-banner"></div>
+<div class="balloons"></div>
 
 <div id="countdown" class="center">10</div>
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
@@ -108,8 +152,8 @@ const countdown = setInterval(() => {
       countdownEl.style.display = "none";
       birthdayMsg.style.display = "block";
       birthdayMsg.classList.add("fade-in");
+      createHearts(); // add hearts
 
-      // After 3s, show paragraph 1
       setTimeout(() => {
         birthdayMsg.classList.add("fadeOutNow");
 
@@ -118,7 +162,6 @@ const countdown = setInterval(() => {
           para1.style.display = "block";
           para1.classList.add("fade-in");
 
-          // After 7s, fade out para1 and show para2
           setTimeout(() => {
             para1.classList.add("fadeOutNow");
 
@@ -128,14 +171,25 @@ const countdown = setInterval(() => {
               para2.classList.add("fade-in");
             }, 1000);
 
-          }, 7000); // 7 seconds readable
+          }, 7000);
 
         }, 1000);
-      }, 3000); // 3 seconds for happy birthday
-
+      }, 3000);
     }, 1000);
   }
 }, 1000);
+
+// Heart float animation
+function createHearts() {
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = `${Math.random() * 100}vw`;
+    heart.style.top = `${Math.random() * 100}vh`;
+    heart.style.animationDelay = `${Math.random() * 8}s`;
+    document.body.appendChild(heart);
+  }
+}
 </script>
 
 </body>
