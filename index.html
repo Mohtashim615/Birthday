@@ -15,7 +15,7 @@
       justify-content: center;
       flex-direction: column;
       height: 100vh;
-      color: #ffe4ec;
+      color: #333;
       overflow: hidden;
       position: relative;
     }
@@ -32,15 +32,7 @@
       opacity: 0;
     }
 
-    #birthdayMsg {
-      display: none;
-      font-size: 3em;
-      color: #ff69b4;
-      animation: fadeIn 2s forwards;
-      z-index: 10;
-    }
-
-    #customMsg {
+    .messageBox {
       display: none;
       max-width: 700px;
       font-size: 1.5em;
@@ -53,12 +45,19 @@
       z-index: 10;
     }
 
+    #birthdayMsg {
+      display: none;
+      font-size: 3em;
+      color: #ff69b4;
+      animation: fadeIn 2s forwards;
+      z-index: 10;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* Heart Container */
     #heartContainer, #balloonContainer {
       position: absolute;
       top: 0;
@@ -70,7 +69,6 @@
       z-index: 1;
     }
 
-    /* Balloons */
     .balloon {
       position: absolute;
       bottom: -100px;
@@ -99,7 +97,6 @@
       100% { transform: translateY(-120vh); opacity: 0; }
     }
 
-    /* Hearts */
     .heart {
       position: absolute;
       width: 20px;
@@ -152,13 +149,17 @@
 
 <div id="countdown" class="center">10</div>
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
-<div id="customMsg">
-  On this beautiful day, I just want you to know...  
-  <br><br>
-  You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
+
+<div id="msg1" class="messageBox">
+  On this special day, I just want to say how blessed the world is to have someone as kind, beautiful, and inspiring as you. Your smile brightens hearts, and your presence makes life so much sweeter. I hope your birthday is filled with love, laughter, magic, and everything that makes you happiest. You deserve the world and more. 💕
 </div>
 
-<!-- Containers for effects -->
+<div id="msg2" class="messageBox">
+  You’re not just special — you made me understand what real love and care feel like. Thank you for coming into my life and staying. On your birthday, I just want you to know how much you’re loved. Every laugh and moment we’ve shared brings me peace. You taught me that love can be quiet and patient too. I hope this year brings you lots of happiness and helps you become the dermatologist you dream of. I’ll always be here, loving and supporting you — even from a distance. Happy Birthday!<br><br>
+  If we walk this journey of life together, I promise to always stand by your side, to support you, to cherish you and to love you with all my heart.<br>
+  <strong>I love you so much. 💖</strong>
+</div>
+
 <div id="heartContainer"></div>
 <div id="balloonContainer"></div>
 
@@ -166,7 +167,8 @@
 let count = 10;
 const countdownEl = document.getElementById("countdown");
 const birthdayMsg = document.getElementById("birthdayMsg");
-const customMsg = document.getElementById("customMsg");
+const msg1 = document.getElementById("msg1");
+const msg2 = document.getElementById("msg2");
 const heartContainer = document.getElementById("heartContainer");
 const balloonContainer = document.getElementById("balloonContainer");
 
@@ -214,7 +216,17 @@ const countdown = setInterval(() => {
 
         setTimeout(() => {
           birthdayMsg.style.display = "none";
-          customMsg.style.display = "block";
+          msg1.style.display = "block";
+
+          // After 7 seconds, show second message
+          setTimeout(() => {
+            msg1.classList.add("fade-out");
+
+            setTimeout(() => {
+              msg1.style.display = "none";
+              msg2.style.display = "block";
+            }, 1000);
+          }, 7000);
         }, 1000);
 
       }, 3000);
@@ -225,3 +237,4 @@ const countdown = setInterval(() => {
 
 </body>
 </html>
+
