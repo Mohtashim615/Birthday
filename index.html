@@ -15,7 +15,7 @@
       justify-content: center;
       flex-direction: column;
       height: 100vh;
-      color: #333;
+      color: #ffe4ec;
       overflow: hidden;
       position: relative;
     }
@@ -37,6 +37,7 @@
       font-size: 3em;
       color: #ff69b4;
       animation: fadeIn 2s forwards;
+      z-index: 10;
     }
 
     #customMsg {
@@ -49,6 +50,7 @@
       border-radius: 20px;
       box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
       animation: fadeIn 2s forwards;
+      z-index: 10;
     }
 
     @keyframes fadeIn {
@@ -56,15 +58,28 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* Balloon animation */
+    /* Heart Container */
+    #heartContainer, #balloonContainer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Balloons */
     .balloon {
       position: absolute;
-      top: 100%;
+      bottom: -100px;
       width: 40px;
       height: 60px;
       background: pink;
       border-radius: 50% 50% 50% 50%;
       animation: floatBalloon 6s ease-in-out forwards;
+      z-index: 2;
     }
 
     .balloon::after {
@@ -84,7 +99,7 @@
       100% { transform: translateY(-120vh); opacity: 0; }
     }
 
-    /* Floating hearts */
+    /* Hearts */
     .heart {
       position: absolute;
       width: 20px;
@@ -93,6 +108,7 @@
       transform: rotate(45deg);
       animation: floatHeart 6s linear infinite;
       opacity: 0.6;
+      z-index: 2;
     }
 
     .heart::before,
@@ -142,7 +158,7 @@
   You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
 </div>
 
-<!-- Heart and Balloon containers -->
+<!-- Containers for effects -->
 <div id="heartContainer"></div>
 <div id="balloonContainer"></div>
 
@@ -155,7 +171,7 @@ const heartContainer = document.getElementById("heartContainer");
 const balloonContainer = document.getElementById("balloonContainer");
 
 function launchBalloons() {
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 12; i++) {
     const balloon = document.createElement("div");
     balloon.classList.add("balloon");
     balloon.style.left = `${Math.random() * 90 + 5}%`;
@@ -189,7 +205,7 @@ const countdown = setInterval(() => {
       countdownEl.style.display = "none";
       birthdayMsg.style.display = "block";
 
-      // Start animations
+      // Launch effects
       launchBalloons();
       launchHearts();
 
