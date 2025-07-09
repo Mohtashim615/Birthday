@@ -13,9 +13,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
       height: 100vh;
       color: #333;
       overflow: hidden;
+      position: relative;
     }
 
     .center {
@@ -23,6 +25,7 @@
       font-size: 4em;
       opacity: 1;
       transition: opacity 1s ease-in-out;
+      z-index: 10;
     }
 
     .fade-out {
@@ -52,6 +55,81 @@
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
     }
+
+    /* Balloon animation */
+    .balloon {
+      position: absolute;
+      top: 100%;
+      width: 40px;
+      height: 60px;
+      background: pink;
+      border-radius: 50% 50% 50% 50%;
+      animation: floatBalloon 6s ease-in-out forwards;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 20px;
+      background: #888;
+    }
+
+    @keyframes floatBalloon {
+      0% { transform: translateY(0); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      transform: rotate(45deg);
+      animation: floatHeart 6s linear infinite;
+      opacity: 0.6;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        bottom: 0;
+        transform: translateX(0) rotate(45deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        bottom: 100%;
+        transform: translateX(50px) rotate(45deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -64,11 +142,40 @@
   You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
 </div>
 
+<!-- Heart and Balloon containers -->
+<div id="heartContainer"></div>
+<div id="balloonContainer"></div>
+
 <script>
 let count = 10;
 const countdownEl = document.getElementById("countdown");
 const birthdayMsg = document.getElementById("birthdayMsg");
 const customMsg = document.getElementById("customMsg");
+const heartContainer = document.getElementById("heartContainer");
+const balloonContainer = document.getElementById("balloonContainer");
+
+function launchBalloons() {
+  for (let i = 0; i < 10; i++) {
+    const balloon = document.createElement("div");
+    balloon.classList.add("balloon");
+    balloon.style.left = `${Math.random() * 90 + 5}%`;
+    balloon.style.background = `hsl(${Math.random() * 360}, 70%, 80%)`;
+    balloonContainer.appendChild(balloon);
+    setTimeout(() => balloon.remove(), 6000);
+  }
+}
+
+function launchHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.bottom = '0';
+    heart.style.animationDuration = `${4 + Math.random() * 3}s`;
+    heartContainer.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+  }, 400);
+}
 
 const countdown = setInterval(() => {
   countdownEl.textContent = count;
@@ -81,6 +188,10 @@ const countdown = setInterval(() => {
     setTimeout(() => {
       countdownEl.style.display = "none";
       birthdayMsg.style.display = "block";
+
+      // Start animations
+      launchBalloons();
+      launchHearts();
 
       setTimeout(() => {
         birthdayMsg.classList.add("fade-out");
