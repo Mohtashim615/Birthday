@@ -10,35 +10,15 @@
       padding: 0;
       background: linear-gradient(135deg, #ffe4ec, #e0f7fa);
       font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
-      color: #ff1493;
+      color: #333;
       overflow: hidden;
     }
 
-    .top-banner {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      height: 100px;
-      background: url('https://i.imgur.com/OD9WfZg.png') repeat-x center/contain;
-      z-index: 2;
-    }
-
-    .balloons {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      height: 120px;
-      background: url('https://i.imgur.com/2pH5RRC.png') repeat-x center/contain;
-      z-index: 1;
-      pointer-events: none;
-    }
-
     .center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
       text-align: center;
       font-size: 4em;
       opacity: 1;
@@ -49,96 +29,46 @@
       opacity: 0;
     }
 
-    .fade-in {
-      display: block;
-      animation: fadeIn 1s forwards;
-    }
-
-    #birthdayMsg,
-    #para1,
-    #para2 {
-      display: none;
-      text-align: center;
-      max-width: 800px;
-      margin: 20px auto;
-      padding: 20px;
-      font-size: 1.5em;
-      background: #ffffffcc;
-      border-radius: 20px;
-      box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
-      color: #444;
-    }
-
     #birthdayMsg {
+      display: none;
       font-size: 3em;
       color: #ff69b4;
-      background: none;
-      box-shadow: none;
+      animation: fadeIn 2s forwards;
+    }
+
+    #customMsg {
+      display: none;
+      max-width: 700px;
+      font-size: 1.5em;
+      color: #444;
+      background: #ffffffcc;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+      animation: fadeIn 2s forwards;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.9); }
+      from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; transform: scale(1); }
-      to { opacity: 0; transform: scale(0.9); }
-    }
-
-    .fadeOutNow {
-      animation: fadeOut 1s forwards;
-    }
-
-    .heart {
-      position: fixed;
-      width: 20px;
-      height: 20px;
-      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/cover;
-      animation: heartFloat 8s linear infinite;
-      pointer-events: none;
-      z-index: 3;
-    }
-
-    @keyframes heartFloat {
-      0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) scale(1.2);
-        opacity: 0;
-      }
     }
   </style>
 </head>
 <body>
 
-<div class="top-banner"></div>
-<div class="balloons"></div>
-
 <div id="countdown" class="center">10</div>
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
-
-<div id="para1">
-  On this special day, I just want to say how blessed the world is to have someone as kind, beautiful, and inspiring as you. Your smile brightens hearts, and your presence makes life so much sweeter.  
-  I hope your birthday is filled with love, laughter, magic, and everything that makes you happiest. You deserve the world and more. 💕
-</div>
-
-<div id="para2">
-  You’re not just special — you made me understand what real love and care feel like. Thank you for coming into my life and staying. On your birthday, I just want you to know how much you’re loved. Every laugh and moment we’ve shared brings me peace. You taught me that love can be quiet and patient too. I hope this year brings you lots of happiness and helps you become the dermatologist you dream of. I’ll always be here, loving and supporting you — even from a distance. Happy Birthday!
+<div id="customMsg">
+  On this beautiful day, I just want you to know...  
   <br><br>
-  If we walk this journey of life together, I promise to always stand by your side, to support you, to cherish you and to love you with all my heart.
-  <br><br>
-  <strong>I love you so much. 💖</strong>
+  You are truly one of the kindest, brightest, and most wonderful people I've ever known. May your day be filled with joy, love, and endless blessings. I love you so much! 💖
 </div>
 
 <script>
 let count = 10;
 const countdownEl = document.getElementById("countdown");
 const birthdayMsg = document.getElementById("birthdayMsg");
-const para1 = document.getElementById("para1");
-const para2 = document.getElementById("para2");
+const customMsg = document.getElementById("customMsg");
 
 const countdown = setInterval(() => {
   countdownEl.textContent = count;
@@ -151,45 +81,19 @@ const countdown = setInterval(() => {
     setTimeout(() => {
       countdownEl.style.display = "none";
       birthdayMsg.style.display = "block";
-      birthdayMsg.classList.add("fade-in");
-      createHearts(); // add hearts
 
       setTimeout(() => {
-        birthdayMsg.classList.add("fadeOutNow");
+        birthdayMsg.classList.add("fade-out");
 
         setTimeout(() => {
           birthdayMsg.style.display = "none";
-          para1.style.display = "block";
-          para1.classList.add("fade-in");
-
-          setTimeout(() => {
-            para1.classList.add("fadeOutNow");
-
-            setTimeout(() => {
-              para1.style.display = "none";
-              para2.style.display = "block";
-              para2.classList.add("fade-in");
-            }, 1000);
-
-          }, 7000);
-
+          customMsg.style.display = "block";
         }, 1000);
+
       }, 3000);
     }, 1000);
   }
 }, 1000);
-
-// Heart float animation
-function createHearts() {
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement('div');
-    heart.className = 'heart';
-    heart.style.left = `${Math.random() * 100}vw`;
-    heart.style.top = `${Math.random() * 100}vh`;
-    heart.style.animationDelay = `${Math.random() * 8}s`;
-    document.body.appendChild(heart);
-  }
-}
 </script>
 
 </body>
