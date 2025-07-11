@@ -256,6 +256,27 @@ const countdown = setInterval(() => {
   }
 }, 1000);
 </script>
+  <audio id="bgMusic" autoplay loop>
+  <source src="Saibo.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Optional toggle button to play/pause -->
+<button onclick="toggleMusic()" style="position: absolute; top: 20px; right: 20px; background-color: #ff69b4; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; z-index: 20;">
+  🔊 Toggle Music
+</button>
+
+<script>
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  if (music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+</script>
+
 
 </body>
 </html>
