@@ -84,7 +84,7 @@
       width: 40px;
       height: 60px;
       background: pink;
-      border-radius: 50% 50% 50% 50%;
+      border-radius: 50%;
       animation: floatBalloon 6s ease-in-out forwards;
       z-index: 2;
     }
@@ -160,7 +160,7 @@
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
 
 <div id="msg1" class="messageBox">
-  On this special day, I just want to say how blessed I am to have someone as kind, beautiful, and inspiring as you. Your smile brightens my hearts, and your presence makes life so much sweeter. I hope your birthday is filled with love, laughter, magic, and everything that makes you happiest. You deserve the world and more. 💕
+  On this special day, I just want to say how blessed I am to have someone as kind, beautiful, and inspiring as you. Your smile brightens my heart, and your presence makes life so much sweeter. I hope your birthday is filled with love, laughter, magic, and everything that makes you happiest. You deserve the world and more. 💕
 </div>
 
 <div id="msg2" class="messageBox">
@@ -172,6 +172,16 @@
 
 <div id="heartContainer"></div>
 <div id="balloonContainer"></div>
+
+<audio id="bgMusic" loop>
+  <source src="Saibo.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Toggle Music Button -->
+<button onclick="toggleMusic()" style="position: absolute; top: 20px; right: 20px; background-color: #ff69b4; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; z-index: 20;">
+  🔊 Toggle Music
+</button>
 
 <script>
 let count = 10;
@@ -216,6 +226,14 @@ const countdown = setInterval(() => {
 
     setTimeout(() => {
       countdownEl.style.display = "none";
+
+      // 🔊 Start music from 6s
+      const music = document.getElementById("bgMusic");
+      music.currentTime = 6;
+      music.play().catch(() => {
+        console.log("Autoplay blocked. User interaction needed.");
+      });
+
       birthdayMsg.style.display = "block";
 
       // Launch effects
@@ -255,18 +273,7 @@ const countdown = setInterval(() => {
     }, 1000);
   }
 }, 1000);
-</script>
-  <audio id="bgMusic" autoplay loop>
-  <source src="Saibo.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
 
-<!-- Optional toggle button to play/pause -->
-<button onclick="toggleMusic()" style="position: absolute; top: 20px; right: 20px; background-color: #ff69b4; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; z-index: 20;">
-  🔊 Toggle Music
-</button>
-
-<script>
 function toggleMusic() {
   const music = document.getElementById("bgMusic");
   if (music.paused) {
@@ -276,7 +283,6 @@ function toggleMusic() {
   }
 }
 </script>
-
 
 </body>
 </html>
