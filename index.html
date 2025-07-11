@@ -15,7 +15,7 @@
       justify-content: center;
       flex-direction: column;
       height: 100vh;
-      color: #333;
+      color: #FF69B4;
       overflow: hidden;
       position: relative;
     }
@@ -50,6 +50,15 @@
       font-size: 3em;
       color: #ff69b4;
       animation: fadeIn 2s forwards;
+      z-index: 10;
+    }
+
+    #finalLine {
+      display: none;
+      font-size: 2em;
+      color: #e91e63;
+      animation: fadeIn 2s forwards;
+      margin-top: 20px;
       z-index: 10;
     }
 
@@ -156,9 +165,10 @@
 
 <div id="msg2" class="messageBox">
   You’re not just special — you made me understand what real love and care feel like. Thank you for coming into my life and staying. On your birthday, I just want you to know how much you’re loved. Every laugh and moment we’ve shared brings me peace. You taught me that love can be quiet and patient too. I hope this year brings you lots of happiness and helps you become the dermatologist you dream of. I’ll always be here, loving and supporting you — even from a distance. Happy Birthday!<br><br>
-  If we walk this journey of life together, I promise to always stand by your side, to support you, to cherish you and to love you with all my heart.<br>
-  <strong>I love you so much. 💖</strong>
+  If we walk this journey of life together, I promise to always stand by your side, to support you, to cherish you and to love you with all my heart.
 </div>
+
+<div id="finalLine">I love you so much. 💖</div>
 
 <div id="heartContainer"></div>
 <div id="balloonContainer"></div>
@@ -169,6 +179,7 @@ const countdownEl = document.getElementById("countdown");
 const birthdayMsg = document.getElementById("birthdayMsg");
 const msg1 = document.getElementById("msg1");
 const msg2 = document.getElementById("msg2");
+const finalLine = document.getElementById("finalLine");
 const heartContainer = document.getElementById("heartContainer");
 const balloonContainer = document.getElementById("balloonContainer");
 
@@ -218,18 +229,29 @@ const countdown = setInterval(() => {
           birthdayMsg.style.display = "none";
           msg1.style.display = "block";
 
-          // After 7 seconds, show second message
           setTimeout(() => {
             msg1.classList.add("fade-out");
 
             setTimeout(() => {
               msg1.style.display = "none";
               msg2.style.display = "block";
-            }, 1000);
-          }, 7000);
-        }, 1000);
 
-      }, 3000);
+              setTimeout(() => {
+                msg2.classList.add("fade-out");
+
+                setTimeout(() => {
+                  msg2.style.display = "none";
+                  finalLine.style.display = "block";
+                }, 1000);
+
+              }, 10000); // msg2 duration
+
+            }, 1000);
+          }, 7000); // msg1 duration
+
+        }, 1000);
+      }, 3000); // birthdayMsg duration
+
     }, 1000);
   }
 }, 1000);
@@ -237,4 +259,3 @@ const countdown = setInterval(() => {
 
 </body>
 </html>
-
