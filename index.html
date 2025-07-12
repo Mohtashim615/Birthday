@@ -242,7 +242,7 @@ function startCountdown() {
   const countdown = setInterval(() => {
     count--;
     countdownEl.textContent = count;
-    if (count < 0) {
+    if (count === 0) {
       clearInterval(countdown);
       countdownEl.classList.add("fade-out");
       setTimeout(() => {
