@@ -84,7 +84,7 @@
       width: 40px;
       height: 60px;
       background: pink;
-      border-radius: 50%;
+      border-radius: 50% 50% 50% 50%;
       animation: floatBalloon 6s ease-in-out forwards;
       z-index: 2;
     }
@@ -152,26 +152,11 @@
         opacity: 0;
       }
     }
-
-    #startButton {
-      font-size: 1.2em;
-      padding: 15px 30px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-      z-index: 999;
-    }
   </style>
 </head>
 <body>
 
-<!-- START BUTTON -->
-<button id="startButton">🎁 Start Surprise</button>
-
-<!-- Hidden content until button is clicked -->
-<div id="countdown" class="center" style="display:none;">10</div>
+<div id="countdown" class="center">10</div>
 <div id="birthdayMsg">🎉 Happy Birthday Aalma 🎉</div>
 
 <div id="msg1" class="messageBox">
@@ -184,16 +169,20 @@
 </div>
 
 <div id="finalLine">I love you soo much. 💖</div>
+
 <div id="heartContainer"></div>
 <div id="balloonContainer"></div>
 
-<!-- Background Music -->
-<audio id="bgMusic" loop>
-  <source src="Saibo.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
 <script>
+let count = 10;
+const countdownEl = document.getElementById("countdown");
+const birthdayMsg = document.getElementById("birthdayMsg");
+const msg1 = document.getElementById("msg1");
+const msg2 = document.getElementById("msg2");
+const finalLine = document.getElementById("finalLine");
+const heartContainer = document.getElementById("heartContainer");
+const balloonContainer = document.getElementById("balloonContainer");
+
 function launchBalloons() {
   for (let i = 0; i < 12; i++) {
     const balloon = document.createElement("div");
@@ -217,74 +206,79 @@ function launchHearts() {
   }, 400);
 }
 
-document.getElementById("startButton").addEventListener("click", function () {
-  // Hide button
-  this.style.display = "none";
+const countdown = setInterval(() => {
+  countdownEl.textContent = count;
+  count--;
 
-  // Show countdown
-  const countdownEl = document.getElementById("countdown");
-  countdownEl.style.display = "block";
+  if (count < 0) {
+    clearInterval(countdown);
+    countdownEl.classList.add("fade-out");
 
-  // Play music
-  const music = document.getElementById("bgMusic");
-  music.play();
+    setTimeout(() => {
+      countdownEl.style.display = "none";
+      birthdayMsg.style.display = "block";
 
-  let count = 10;
-  const birthdayMsg = document.getElementById("birthdayMsg");
-  const msg1 = document.getElementById("msg1");
-  const msg2 = document.getElementById("msg2");
-  const finalLine = document.getElementById("finalLine");
-  const heartContainer = document.getElementById("heartContainer");
-  const balloonContainer = document.getElementById("balloonContainer");
-
-  const countdown = setInterval(() => {
-    countdownEl.textContent = count;
-    count--;
-
-    if (count < 0) {
-      clearInterval(countdown);
-      countdownEl.classList.add("fade-out");
+      // Launch effects
+      launchBalloons();
+      launchHearts();
 
       setTimeout(() => {
-        countdownEl.style.display = "none";
-        birthdayMsg.style.display = "block";
-        launchBalloons();
-        launchHearts();
+        birthdayMsg.classList.add("fade-out");
 
         setTimeout(() => {
-          birthdayMsg.classList.add("fade-out");
+          birthdayMsg.style.display = "none";
+          msg1.style.display = "block";
 
           setTimeout(() => {
-            birthdayMsg.style.display = "none";
-            msg1.style.display = "block";
+            msg1.classList.add("fade-out");
 
             setTimeout(() => {
-              msg1.classList.add("fade-out");
+              msg1.style.display = "none";
+              msg2.style.display = "block";
 
               setTimeout(() => {
-                msg1.style.display = "none";
-                msg2.style.display = "block";
+                msg2.classList.add("fade-out");
 
                 setTimeout(() => {
-                  msg2.classList.add("fade-out");
+                  msg2.style.display = "none";
+                  finalLine.style.display = "block";
+                }, 1000);
 
-                  setTimeout(() => {
-                    msg2.style.display = "none";
-                    finalLine.style.display = "block";
-                  }, 1000);
+              }, 10000); // msg2 duration
 
-                }, 10000); // msg2 duration
+            }, 1000);
+          }, 7000); // msg1 duration
 
-              }, 1000);
-            }, 7000); // msg1 duration
+        }, 1000);
+      }, 3000); // birthdayMsg duration
 
-          }, 1000);
-        }, 3000); // birthdayMsg duration
-
-      }, 1000);
-    }
-  }, 1000);
-});
+    }, 1000);
+  }
+}, 1000);
 </script>
+  <audio id="bgMusic" autoplay loop>
+  <source src="Saibo.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Optional toggle button to play/pause -->
+<button onclick="toggleMusic()" style="position: absolute; top: 20px; right: 20px; background-color: #ff69b4; color: white; border: none; padding: 10px 20px; border-radius: 10px; cursor: pointer; z-index: 20;">
+  🔊 Toggle Music
+</button>
+
+<script>
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  if (music.paused) {
+    music.play();
+  } else {
+    music.pause();
+  }
+}
+</script>
+</body>
+</html>
+
+
 </body>
 </html>
