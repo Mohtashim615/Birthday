@@ -221,6 +221,8 @@ const countdown = setInterval(() => {
       // Launch effects
       launchBalloons();
       launchHearts();
+      document.getElementById("bgMusic").play();
+
 
       setTimeout(() => {
         birthdayMsg.classList.add("fade-out");
@@ -258,7 +260,6 @@ const countdown = setInterval(() => {
 </script>
   <audio id="bgMusic" autoplay loop>
   <source src="Saibo.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
 </audio>
 </body>
 </html>
