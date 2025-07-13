@@ -214,7 +214,7 @@ const balloonContainer = document.getElementById("balloonContainer");
 const bgMusic = document.getElementById("bgMusic");
 
 function launchBalloons() {
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 15; i++) {
     const balloon = document.createElement("div");
     balloon.classList.add("balloon");
     balloon.style.left = `${Math.random() * 90 + 5}%`;
@@ -237,7 +237,7 @@ function launchHearts() {
 }
 
 function startCountdown() {
-  let count = 10;
+  let count = 9;
   countdownEl.textContent = count;
   const countdown = setInterval(() => {
     count--;
@@ -272,7 +272,7 @@ function startCountdown() {
                     msg2.style.display = "none";
                     finalLine.style.display = "block";
                   }, 1000);
-                }, 10000); // msg2
+                }, 15000); // msg2
               }, 1000);
             }, 7000); // msg1
           }, 1000);
